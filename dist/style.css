@@ -36,5 +36,27 @@ body {
 #container {
     display: grid;
     grid-template-columns: 200px auto;
-
 }
+
+#sidebar {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    background-color: lightgoldenrodyellow;
+    color: darkcyan;
+}
+
+#createProject, #projectForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    padding: 10px;
+}
+
+#projectForm label, input, button {
+    margin-bottom: 8px;
+    color: darkcyan;
+    border-color: darkcyan;
+    border-radius: 5px;
+}
+

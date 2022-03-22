@@ -18,8 +18,22 @@
     <!--Contains the main app data (form and contents)-->
     <div id="container">
         <!--Contains the form data with user inputs for projects and tasks-->
-        <div id="inputs">
-
+        <div id="sidebar">
+            <!--This div holds form data to create projects-->
+            <div id="createProject">
+                <h4>Create Project!</h4>
+                    <form id="projectForm">
+                        <label for="projectName">Project Title</label>
+                        <input type="text" name="projectName" id="projectName" placeholder="Shopping List" required>
+                        <label for="projectDate">Due Date</label>
+                        <input type="date" name="projectDate" id="projectDate" placeholder="01/31/2022" required>
+                        <button type="submit" id="submitProject">Create Project</button>
+                    </form>
+            </div>
+            <!--This div holds form data to create tasks-->
+            <div id="createTask">
+                <!--This is where DOM Manipulation will add the form to fill out tasks-->
+            </div>
         </div>
         <!--Contains the contents where the projects and tasks will be displayed-->
         <div id="contents">
