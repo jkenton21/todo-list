@@ -1,103 +1,97 @@
 //Module to create the project
 
-import {localStorageModule} from "./localStorage"
+import {localStorageModule} from "./localStorage.js"
 import {stylesModule} from "./createStyles.js"
-import {tasks} from "./createTask.js"
+import {taskModule} from "./createTask.js"
 
-//Projects
-const project = (name, dueDate, tasks) => {
+//Factory with projects
+const Projects = (name, dueDate, tasks) => {
     return {name, dueDate, tasks}
 }
 
-//create projects
-const projects = (() => {
+const projectsModule = (() => {
     let projectsList = [];
     let currentProjectIndex;
-    const newProjectButton = document.querySelector('#newProjectButton');
-    const newProjectForm = document.querySelector('#newProjectForm');
+    const newProjectButton = document.querySelector('#new-project-button');
+    const newProjectForm = document.querySelector('#new-project-form')
     newProjectButton.addEventListener('click', () => {
         stylesModule.visibleDiv(newProjectForm);
     });
-    const submitProjectButton = document.querySelector('#submitProjectButton');
-    submitProjectButton.addEventListener('click', ()=> {
-        let projectName = document.querySelector("#projectName").value;
-        if (projectName == '') {
-            projectName = 'Project';
+    const submitProjectButton = document.querySelector('#submit-project-button');
+    submitProjectButton.addEventListener('click', () => {
+        let projectName = document.querySelector('#pname').value;
+        if(projectName == ''){
+            projectName = 'Project'
         }
-        let dueDate = document.querySelector('#dueDate').value;
+        let dueDate = document.querySelector('#duedate').value;
         if (dueDate == ''){
             let currentDate = new Date()
             let currentYear = currentDate.getFullYear();
             let currentMonth = (currentDate.getMonth() + 1).toString();
-            while(currentMonth.length <2){
+            while(currentMonth.length < 2){
                 currentMonth = '0' + currentMonth;
             }
             let currentDay = (currentDate.getDate()).toString();
             while(currentDay.length < 2){
-                currentDat = '0' + currentDay;
+                currentDay = '0' + currentDay;
             }
             dueDate = `${currentYear}-${currentMonth}-${currentDay}`;
         }
         dueDate = dueDate.split('-').reverse().join('/');
-        projects.projectsList.push(project(projectName, dueDate, []));
-        displayProjects(projects.projectsList.length - 1);
+        projectsModule.projectsList.push(Projects(projectName, dueDate, []));
+        projectsDisplay(projectsModule.projectsList.length - 1);
         stylesModule.visibleDiv(newProjectForm);
-        localStorageModule.saveToLocal();
+        localStorageModule.saveLocalStorage();
     })
-
-    //Display projects
-    const displayProjects = function(a = 0) {
+    const projectsDisplay = function(a = 0) {
         const projectsFullDiv = document.querySelector('#projects');
-        for (let i = a; i < projects.projectsList.length; i++) {
+        for (let i = a; i < projectsModule.projectsList.length; i++){
+            console.log(projectsModule.projectsList[i])
             const projectDiv = document.createElement('div');
-            projectDiv.classList.add('projectsDiv');
-            const projectName = document.createElement('button');
-            projectName.type = 'button';
-            projectName.classList.add('projectName');
-            projectName.textContent = projects.projectsList[i].name;
-            projectName.addEventListener('click', ()=> {
-                stylesModule.selectedDiv(document.querySelectorAll('.projectName'), projectName)
-                updateCurrentProject(i);
-                const listOfTasks = document.querySelector('#taskList');
-                if (listOfTasts.style.visibility != 'visible') {
-                    listOfTasks.style.visibility = 'visible';
-                }
-                tasks.taskTitleDivDisplay();
-                tasks.clearTaskDisplay();
-                tasks.tasksDisplay();
-            });
-            const button = document.createElement('button');
-            button.classList.add('deleteProjectButton');
-            button.type = 'button';
-            const icon = document.createElement('i');
-            icon.classList.add('materialIcons');
-            icon.textContent = 'remove';
-            button.appendChild(icon);
-            button.addEventListener('click', () => {
-                removeProject(button, i);
-            })
-            projectDiv.appendChild(projectName);
-            projectDiv.appendChild(button);
+                projectDiv.classList.add('projects-div');
+                const projectName = document.createElement('button');
+                projectName.type = 'button';
+                projectName.classList.add('project-name');
+                projectName.textContent = projectsModule.projectsList[i].name;
+                    projectName.addEventListener('click', () => {
+                        stylesModule.selectedDiv(document.querySelectorAll('.project-name'), projectName)
+                        updateCurrentProject(i);
+                        const listOfTasks = document.querySelector('#list');
+                        if (listOfTasks.style.visibility != 'visible'){
+                            listOfTasks.style.visibility = 'visible';
+                        }
+                        taskModule.taskTitleDivDisplay();
+                        taskModule.clearTaskDisplay();
+                        taskModule.tasksDisplay();
+                    });
+                const button = document.createElement('button');
+                button.classList.add('delete-button-project');
+                button.type = 'button';
+                    const icon = document.createElement('i');
+                    icon.classList.add('material-icons');
+                    icon.textContent = 'remove';
+                    button.appendChild(icon);
+                button.addEventListener('click', () => {
+                    removeProject(button, i);
+                })
+                projectDiv.appendChild(projectName);
+                projectDiv.appendChild(button);
             projectsFullDiv.appendChild(projectDiv);
         }
     }
-    
-    //edit project
-    const updateCurrentProject = function(x) {
-        projects.currentProjectIndex = x;
+    const updateCurrentProject = function(x){
+        projectsModule.currentProjectIndex = x;
     }
-
-    //deletes project
     const removeProject = function(target, index){
-        projects.projectsList.splice(index, 1);
+        projectsModule.projectsList.splice(index, 1);
         target.parentElement.remove();
-        if (projects.projectsList.length == 0) {
-            const listOfTasks = document.querySelector('#taskList');
+        if (projectsModule.projectsList.length == 0){
+            const listOfTasks = document.querySelector('#list');
             listOfTasks.style.visibility = 'hidden';
         }
-        localStorageModule.saveToLocal();
+        localStorageModule.saveLocalStorage();
     }
-    return {projectsList, currentProjectIndex, displayProjects}
-})()
+    return {projectsList, currentProjectIndex, projectsDisplay}
+})()    
 
-export {projects}
+export {projectsModule}

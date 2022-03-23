@@ -3,6 +3,6 @@
 // up using webpack to run the html. The html will pull from the packaged
 // file "main.js" in the dist/ folder in th project directory.
 
-import {localStorageModule} from "./modules/localStorage"
+import {localStorageModule} from "./modules/localStorage.js"
 
 localStorageModule.loadLocalStorage();

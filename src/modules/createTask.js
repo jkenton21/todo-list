@@ -1,131 +1,127 @@
 //Module to create the tasks for each project
 
 import {localStorageModule} from "./localStorage.js"
-import {projects} from "./createProject.js"
+import {projectsModule} from "./createProject.js"
 import {stylesModule} from "./createStyles.js"
 
-//create task
-const task = (name, status, priority) => {
+const Task = (name, status, priority) => {
     return {name, status, priority}
 }
 
-const tasks = (() => {
-    const newTaskButton = document.querySelector('#newTaskButton');
-    const newTaskForm = document.querySelector('#newTaskForm');
-    newTaskButton.addEventListener('click', () => {
-        stylesModule.visibleDiv(newTaskFOrm);
-    })
-
-    const submitTaskButton = document.querySelector('#submitTaskButton');
-    submitTaskButton.addEventListener('click', () => {
-        const taskName = document.querySelector('#taskName').Value;
-        if (taskName == '') {
-            taskName = 'Task';
-        }
-        const priority = document.querySelector('input[type=radio][name=priority]:checked').value;
-        projects.projectsList[projects.currentProjectIndex].tasks.push(task(taskName, 'NotDone', priority));
-        stylesModule.visibleDiv(newTaskForm);
-        tasksDisplay(projets.projectsList[projects.currentProjectIndex].tasks.length - 1);
-        localStorageModule.saveToLocal();
-    })
-
-    const taskTitleDivDisplay = function() {
-        const projectDataName = document.querySelector('#projectDataName');
-        const projectDataDate = document.querySelector('#projectDataDate');
-        projectDataName.textContent = projects.projectsList[projects.currentProjectIndex].name;
-        projectDataDate.textContent = projects.projectsList[projects.currentProjectIndex].dueDate;
+const taskModule = (() => {
+    const newTaskButton = document.querySelector('#new-task-button');
+    const newTaskForm = document.querySelector('#new-task-form');
+        newTaskButton.addEventListener('click', () => {
+            stylesModule.visibleDiv(newTaskForm);
+        })
+    const submitTaskButton = document.querySelector('#submit-task-button');
+        submitTaskButton.addEventListener('click', () => {
+            const tname = document.querySelector('#tname').value;
+            if (tname == ''){
+                tname = 'Task';
+            }
+            const priority = document.querySelector('input[type=radio][name=priority]:checked').value;
+            projectsModule.projectsList[projectsModule.currentProjectIndex].tasks.push(Task(tname,'not-done', priority));
+            stylesModule.visibleDiv(newTaskForm);
+            tasksDisplay(projectsModule.projectsList[projectsModule.currentProjectIndex].tasks.length - 1);
+            localStorageModule.saveLocalStorage();
+        })
+    const taskTitleDivDisplay = function(){
+        const projectDataName = document.querySelector('#project-data-name');
+        const projectDataDate = document.querySelector('#project-data-date');
+        projectDataName.textContent = projectsModule.projectsList[projectsModule.currentProjectIndex].name;
+        projectDataDate.textContent = projectsModule.projectsList[projectsModule.currentProjectIndex].dueDate;
     }
-
-    const tasksDisplay = function(a = 0) {
-        const tasks = document.querySelector('#tasks');
-        let x = projects.projectsList[projects.currentProjectIndex].tasks;
-        for (let i = a; i < x.length; i++) {
+    const tasksDisplay = function(a = 0){
+        const tasks = document.querySelector('#tasks')
+        let x = projectsModule.projectsList[projectsModule.currentProjectIndex].tasks;
+        for (let i = a; i < x.length; i++){
             const listTask = document.createElement('div');
-            listTask.classList.add('listTask');
-            const icon0 = document.createElement('i');
-            icon0.classList.add('materialIcons');
-            icon0.classList.add('taskStatus');
-            icon0.classList.add(`taskStatus${x[i].status}`);
-            icon0.textContent = 'radio_button_unchecked';
-            const p = document.createElement('p');
-            p.textContent = x[i].name;
-            const taskButtons = document.createElement('div');
-            taskButtons.classList.add('taskButtons');
-            const priorityButton = document.createElement('button');
-            priorityButton.type = 'button';
-            priorityButton.classList.add('priorityButtons');
-            priorityButton.classList.add(x[i].priority);
-            const icon1 = document.createElement('i');
-            icon1.classList.add('materialIcons');
-            icon1.textContent = 'priorityHigh';
-            priorityButton.appendChild(icon1);
-            priorityButton.addEventListener('click', () => {
-                if (x[i].priority == 'lowPriority') {
-                    projects.projectsList[projects.currentProjectIndex].tasks[i].priority = 'mediumPriority';
-                    priorityButton.classList.remove('lowPriority');
-                    priorityButton.classList.add('mediumPriority');
-                } else if (x[i].priority == 'mediumPriority') {
-                    projects.projectsList[projects.currentProjectIndex].tasks[i].priority = 'highPriority';
-                    priorityButton.classList.remove('mediumPriority');
-                    priorityButton.classList.add('highPriority');
-                } else if (x[i].priority == 'highPriority') {
-                    projects.projectsList[projects.currentProjectIndex].tasks[i].priority = 'lowPriority';
-                    priorityButton.classList.remove('highPriority');
-                    priorityButton.classList.add('lowPriority');
-                }
-                localStorageModule.saveToLocal();
-            })
-
-            const taskStatusButton = document.createElement('button');
-            taskStatusButton.type = 'button';
-            taskStatusButton.classList.add('taskStatusButton');
-            taskStatusButton.textContent = 'Change Status';
-            taskStatusButton.addEventListener('click', () => {
-                if(x[i].status == 'notDone') {
-                    projects.projectsList[projects.currentProjectIndex].tasks[i].status = 'done';
-                } else if (x[i].status == 'done') {
-                    projects.projectsList[projects.currentProjectIndex].tasks[i].status = 'failed';
-                } else if (x[i].status == 'failed') {
-                    projects.projectsList[projects.currentProjectIndex].tasks[i].status = 'notDone';
-                } 
-                stylesModule.taskStatusDisplay(i);
-                localStorageModule.saveToLocal();
-            })
-
-            const deleteTaskButton = document.createElement('button');
-            deleteTaskButton.type = 'button';
-            deleteTaskButton.classList.add('deleteTaskButton');
-            const icon2 = document.createElement('i');
-            icon2.classList.add('materialIcons');
-            icon2.textContent = 'remove';
-            deleteTaskButton.appendChild(icon2);
-            deleteTaskButton.addEventListener('click', () => {
-                removeTask(deleteTaskButton, i);
-            })
-            taskButtons.appendChild(priorityButton);
-            taskButtons.appendChild(taskStatusButton);
-            taskButtons.appendChild(deleteTaskButton);
-            listTask.appendChild(icon0);
-            listTask.appendChild(p);
-            listTask.appendChild(taskButtons);
+            listTask.classList.add('list-task');
+                const icon0 = document.createElement('i');
+                    icon0.classList.add('material-icons');
+                    icon0.classList.add('task-status');
+                    icon0.classList.add(`task-status-${x[i].status}`);
+                    icon0.textContent = 'ral';
+                const p = document.createElement('p');
+                    p.textContent = x[i].name;
+                const taskButtons = document.createElement('div');
+                    taskButtons.classList.add('task-buttons');
+                    const priorityButton = document.createElement('button')
+                        priorityButton.type = 'button';
+                        priorityButton.classList.add('priority-buttons')
+                        priorityButton.classList.add(x[i].priority);
+                            const icon1 = document.createElement('i');
+                            icon1.classList.add('material-icons');
+                            icon1.textContent = 'High Priority';
+                        priorityButton.appendChild(icon1);
+                        priorityButton.addEventListener('click', () => {
+                            if (x[i].priority == 'low-priority'){
+                                projectsModule.projectsList[projectsModule.currentProjectIndex].tasks[i].priority = 'medium-priority';
+                                priorityButton.classList.remove('low-priority');
+                                priorityButton.classList.add('medium-priority');
+                                icon1.textContent = 'Med. Priority'
+                            } else if (x[i].priority == 'medium-priority'){
+                                projectsModule.projectsList[projectsModule.currentProjectIndex].tasks[i].priority = 'high-priority';
+                                priorityButton.classList.remove('medium-priority');
+                                priorityButton.classList.add('high-priority');
+                                icon1.textContent = 'High Priority'
+                            } else if (x[i].priority == 'high-priority'){
+                                projectsModule.projectsList[projectsModule.currentProjectIndex].tasks[i].priority = 'low-priority';
+                                priorityButton.classList.remove('high-priority');
+                                priorityButton.classList.add('low-priority');
+                                icon1.textContent = 'Low Priority'
+                            }
+                            localStorageModule.saveLocalStorage();
+                        })
+                    const taskStatusButton = document.createElement('button');
+                        taskStatusButton.type = 'button';
+                        taskStatusButton.classList.add('task-status-button');
+                        taskStatusButton.textContent = 'Change Status';
+                        taskStatusButton.addEventListener('click', () => {
+                            if(x[i].status == 'not-done'){
+                                projectsModule.projectsList[projectsModule.currentProjectIndex].tasks[i].status = 'done';
+                            } else if (x[i].status == 'done'){
+                                projectsModule.projectsList[projectsModule.currentProjectIndex].tasks[i].status = 'failed';
+                            } else if (x[i].status == 'failed'){
+                                projectsModule.projectsList[projectsModule.currentProjectIndex].tasks[i].status = 'not-done';
+                            }
+                            stylesModule.taskStatusDisplay(i);
+                            localStorageModule.saveLocalStorage();
+                        })
+                    const deleteTaskButton = document.createElement('button');
+                        deleteTaskButton.type = 'button';
+                        deleteTaskButton.classList.add('delete-button-task');
+                            const icon2 = document.createElement('i');
+                            icon2.classList.add('material-icons');
+                            icon2.textContent = 'remove';
+                        deleteTaskButton.appendChild(icon2);
+                        deleteTaskButton.addEventListener('click', () => {
+                            removeTask(deleteTaskButton, i);
+                        })
+                    taskButtons.appendChild(priorityButton);
+                    taskButtons.appendChild(taskStatusButton);
+                    taskButtons.appendChild(deleteTaskButton);
+                listTask.appendChild(icon0);
+                listTask.appendChild(p);
+                listTask.appendChild(taskButtons);
             tasks.appendChild(listTask);
         }
     }
 
-    const clearTaskDisplay = function() {
+    const clearTaskDisplay = function(){
         const tasks = document.querySelector('#tasks');
         while (tasks.firstChild) {
             tasks.removeChild(tasks.firstChild);
-            localStorageModule.saveToLocal();
+            localStorageModule.saveLocalStorage();
         }
     }
-
-    const removeTask = function (target, index) {
-        projects.projectsList[projects.currentProjectIndex].tasks.splice(index, 1);
+    const removeTask = function(target, index){
+        projectsModule.projectsList[projectsModule.currentProjectIndex].tasks.splice(index, 1);
         target.parentElement.parentElement.remove();
     }
 
     return {taskTitleDivDisplay, tasksDisplay, clearTaskDisplay}
 })()
 
-export {tasks}
+export {taskModule}

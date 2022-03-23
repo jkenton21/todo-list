@@ -1,20 +1,20 @@
 //Handles the local storage on the machine for the projects and tasks
 
-import {projects} from "./createProject.js"
+import {projectsModule} from "./createProject.js"
 
 const localStorageModule = (() => {
-    function saveToLocal() {
-        localStorage.setItem("projects.projectsList", JSON.stringify(projects.projectsList));
-    }
-
-    function loadFromStorage() {
-        projects.projectsList = JSON.parse(localStorage.getItem("projects.projectsList"));
-        if (projects.projectsList === null){
-            projects.projectsList = [];
+    function saveLocalStorage() {
+        localStorage.setItem("projectsModule.projectsList", JSON.stringify(projectsModule.projectsList));
+    }   //JSON.stringify -> local storage only supports strings
+    
+    function loadLocalStorage() {
+        projectsModule.projectsList = JSON.parse(localStorage.getItem("projectsModule.projectsList"));
+        if (projectsModule.projectsList === null){
+            projectsModule.projectsList = [];
         }
-        projects.projectsDisplay(0);
+        projectsModule.projectsDisplay(0);
     }
-    return {saveToLocal, loadFromLocal}
+    return {saveLocalStorage, loadLocalStorage}
 })()
 
 export {localStorageModule}
