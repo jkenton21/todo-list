@@ -16,47 +16,47 @@
         <p>making productivity more productive</p>
     </div>
     <!--Contains the main app data (form and contents)-->
-    <div id="container">
-        <!--Contains the form data with user inputs for projects and tasks-->
-        <div id="sidebar">
-            <!--This div holds form data to create projects-->
-            <div id="projects">
-                <h4>Create Project!</h4>
-                <button type="button" id="newProjectButton">
-                    New Project
-                </button>
-                <form id="newProjectForm">
-                    <label for="projectName">Project Name:</label>
-                    <input type="text" id="projectName" name="projectName">
-                    <label for="dueDate">Due Date:</label>
-                    <input type="date" id="dueDate" name="dueDate">
-                    <button type="button" id="submitProjectButton">Create Project</button>
-                </form>
-            </div>
+    <div id="main-content">
+        <div id="projects">
+          <div id="projects-title-div"><p>Projects</p>
+            <button type="button" id="new-project-button">New Project</button>
+          </div>
+            <form id="new-project-form">
+              <label for="pname">Project Name:</label>
+              <input type="text" id="pname" name="pname">
+              <label for="duedate">Due Date:</label>
+              <input type="date" id="duedate" name="duedate">
+              <button type="button" id="submit-project-button">Add Project</button>
+            </form> 
         </div>
-        <!--Contains the contents where the projects and tasks will be displayed-->
-        <div id="contents">
-            <div id="projectData">
-                <!--Where Projects will be displayed-->
-                <p id="projectDataName">Project</p>
-                <p id="projectDataDate">Due Date: 03.18.2023</p>
-            </div>
-            <div id="taskList">
-                <!--Where Tasks will be displayed-->
-            </div>
-            <button type="button" id="newTaskButton">NewTask</button>
-            <div id="newTaskInput"></div>
-              <form id="newTaskForm">
-                  <label for="taskName">Task Name:</label>
-                  <input type="text" id="taskName" name="taskName">
-                  <label for="taskDescription">Description:</label>
-                  <input type="text" id="taskDescription" name="taskDescription">
-                  <label for="taskComplete">Completed:</label>
-                  <input type="radio" id="taskCompleted" name="taskCompleted">
-                  <button type="button" id="submitTaskButton">Create Task</button>
-              </form>
+        <div id="list">
+          <div id="project-data-div">
+            <p id="project-data-name">Project</p>
+            <p id="project-data-date">Due date: 20.04.2020</p>
+          </div>
+          <div id="tasks">
+          </div>
+          <button type="button" id="new-task-button">New Task</button>
+          <div id="new-task-input"></div>
+            <form id="new-task-form">
+              <label for="tname">Task Name:</label>
+              <input type="text" id="tname" name="tname">
+              <div id="checkboxes-div">
+                <p>Priority:</p>
+                <label for="high">High
+                <input type="radio" id="high" name="priority" value="high-priority" checked>
+                </label><br>
+                <label for="medium">Medium
+                <input type="radio" id="medium" name="priority" value="medium-priority">
+                </label><br>
+                <label for="low">Low
+                <input type="radio" id="low" name="priority" value="low-priority">
+                </label> 
+              </div>
+              <button type="button" id="submit-task-button">Add Task</button>
+            </form> 
         </div>
-    </div>
+      </div>
     <!--Displays footer with username or any sources-->
     <div id="footer">
         by jkenton21

@@ -33,19 +33,19 @@ body {
     background-color: darkcyan;
 }
 
-#container {
+#main-content{
     display: grid;
     grid-template-columns: 200px auto;
 }
 
-#sidebar {
+#projects {
     display: grid;
     grid-template-rows: 1fr 1fr;
     background-color: lightgoldenrodyellow;
     color: darkcyan;
 }
 
-#projects, #newProjectForm {
+#projects, #new-project-form, #new-task-form, #projects-title-div {
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -53,10 +53,71 @@ body {
     padding: 10px;
 }
 
-#projectForm label, input, button {
+#new-project-form label, input, button {
     margin-bottom: 8px;
     color: darkcyan;
     border-color: darkcyan;
     border-radius: 5px;
 }
 
+#new-task-form label, input, button {
+    margin-bottom: 8px;
+    color: darkcyan;
+    border-color: darkcyan;
+    border-radius: 5px;
+}
+
+#new-project-form, #new-task-form {
+    visibility: hidden;
+    background-color: lightgray;
+    border-style: solid;
+    border-color: darkcyan;
+    border-radius: 5px;
+}
+
+.task-buttons {
+    width: 270px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.list-task {
+    background-color:lightgrey;
+    color: darkcyan;
+    border-style: solid;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+    border-color: darkcyan;
+}
+
+#new-task-button {
+    margin: 5px;
+}
+
+#project-data-div {
+    font-weight: bold;
+    color: darkgoldenrod;
+    margin-left: 10px;
+}
+
+.task-status {
+    color: transparent;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.task-status-done {
+    background-color: #07f837;
+}
+
+.task-status-failed {
+    background-color: #f70707;
+}
+
+.task-status-not-done {
+    background-color: #292828;
+}
