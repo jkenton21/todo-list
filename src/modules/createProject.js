@@ -1,6 +1,6 @@
 //Module to create the project
 
-import {localStorageModule} from "./localStorage.js"
+import {localStorageModule} from "./localStorage"
 import {stylesModule} from "./createStyles.js"
 import {tasks} from "./createTask.js"
 
