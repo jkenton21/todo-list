@@ -20,24 +20,41 @@
         <!--Contains the form data with user inputs for projects and tasks-->
         <div id="sidebar">
             <!--This div holds form data to create projects-->
-            <div id="createProject">
+            <div id="projects">
                 <h4>Create Project!</h4>
-                    <form id="projectForm">
-                        <label for="projectName">Project Title</label>
-                        <input type="text" name="projectName" id="projectName" placeholder="Shopping List" required>
-                        <label for="projectDate">Due Date</label>
-                        <input type="date" name="projectDate" id="projectDate" placeholder="01/31/2022" required>
-                        <button type="submit" id="submitProject">Create Project</button>
-                    </form>
-            </div>
-            <!--This div holds form data to create tasks-->
-            <div id="createTask">
-                <!--This is where DOM Manipulation will add the form to fill out tasks-->
+                <button type="button" id="newProjectButton">
+                    New Project
+                </button>
+                <form id="newProjectForm">
+                    <label for="projectName">Project Name:</label>
+                    <input type="text" id="projectName" name="projectName">
+                    <label for="dueDate">Due Date:</label>
+                    <input type="date" id="dueDate" name="dueDate">
+                    <button type="button" id="submitProjectButton">Create Project</button>
+                </form>
             </div>
         </div>
         <!--Contains the contents where the projects and tasks will be displayed-->
         <div id="contents">
-
+            <div id="projectData">
+                <!--Where Projects will be displayed-->
+                <p id="projectDataName">Project</p>
+                <p id="projectDataDate">Due Date: 03.18.2023</p>
+            </div>
+            <div id="taskList">
+                <!--Where Tasks will be displayed-->
+            </div>
+            <button type="button" id="newTaskButton">NewTask</button>
+            <div id="newTaskInput"></div>
+              <form id="newTaskForm">
+                  <label for="taskName">Task Name:</label>
+                  <input type="text" id="taskName" name="taskName">
+                  <label for="taskDescription">Description:</label>
+                  <input type="text" id="taskDescription" name="taskDescription">
+                  <label for="taskComplete">Completed:</label>
+                  <input type="radio" id="taskCompleted" name="taskCompleted">
+                  <button type="button" id="submitTaskButton">Create Task</button>
+              </form>
         </div>
     </div>
     <!--Displays footer with username or any sources-->
