@@ -45,7 +45,7 @@ body {
     color: darkcyan;
 }
 
-#createProject, #projectForm {
+#projects, #newProjectForm {
     display: flex;
     flex-direction: column;
     justify-content: start;
